@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My University Learning Plan — Edsel Evan Santoso</title>
+<meta name="description" content="A S.M.A.R.T. learning plan for a first-year Mechanical and Automation Engineering student at Chung Chi College, CUHK.">
+<meta name="theme-color" content="#141414">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..800;1,62..125,400..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#141414; --bg-2:#1B1B1B; --bg-3:#232323;
+  --fg:#F2F2F2; --fg-2:#A9ABAE; --fg-3:#707377;
+  --acc:#A4C29F; --acc-2:#7FA679; --red:#C85A45;
+  --line:rgba(242,242,242,.14); --line-2:rgba(242,242,242,.3);
+  --ease:cubic-bezier(.22,1,.36,1); --q:cubic-bezier(.83,0,.17,1); --oq:cubic-bezier(.22,1,.36,1);
+  --pad:clamp(1rem,4vw,2.5rem);
+  --sans:'Archivo',system-ui,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --sw:100vw;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scrollbar-gutter:stable}
+html,body{overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--sans);
+  font-size:clamp(1rem,1vw + .72rem,1.12rem);line-height:1.6;-webkit-font-smoothing:antialiased}
+body.lock{overflow:hidden}
+::selection{background:var(--acc);color:#0d0d0d}
+img,video{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--acc);outline-offset:4px}
+button{font:inherit;color:inherit}
+
+/* ---------- loader ---------- */
+#loader{position:fixed;inset:0;z-index:400;background:#000;display:flex;flex-direction:column;
+  justify-content:flex-end;padding:var(--pad);transition:opacity .6s ease,visibility .6s}
+#loader.done{opacity:0;visibility:hidden}
+.ld-top{position:absolute;top:var(--pad);left:var(--pad);right:var(--pad);display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-3)}
+.ld-num{font-variation-settings:'wdth' 125;font-weight:800;font-size:clamp(3rem,16vw,11rem);line-height:.8;
+  letter-spacing:-.03em;color:var(--fg)}
+.ld-bar{height:2px;background:rgba(242,242,242,.16);margin-top:1.2rem;position:relative;overflow:hidden}
+.ld-bar i{position:absolute;inset:0;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .25s linear}
+@media (prefers-reduced-motion:reduce){#loader{display:none}}
+
+/* ---------- cursor / rail ---------- */
+#cursor{position:fixed;top:0;left:0;width:34px;height:34px;border:1px solid var(--fg);border-radius:50%;
+  pointer-events:none;z-index:350;mix-blend-mode:difference;transform:translate(-50%,-50%);
+  transition:width .35s var(--ease),height .35s var(--ease),opacity .3s;will-change:transform;opacity:0}
+#cursor.on{opacity:1}
+#cursor.big{width:78px;height:78px;background:rgba(242,242,242,.12)}
+#cursor.grab{width:64px;height:64px;border-style:dashed}
+@media (hover:none),(max-width:820px){#cursor{display:none}}
+#rail{position:fixed;top:0;left:0;height:2px;width:0;background:var(--acc);z-index:200}
+
+/* ---------- nav ---------- */
+#nav{position:fixed;top:0;left:0;width:100%;z-index:180;padding:var(--pad);transition:transform .7s cubic-bezier(.9,.1,.1,.9)}
+#nav.hide{transform:translateY(-130%)}
+.nav-blur{position:absolute;inset:0;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  -webkit-mask-image:linear-gradient(to bottom,#000,rgba(0,0,0,.75) 42%,rgba(0,0,0,.25) 62%,transparent 78%);
+  mask-image:linear-gradient(to bottom,#000,rgba(0,0,0,.75) 42%,rgba(0,0,0,.25) 62%,transparent 78%);pointer-events:none}
+.nav-in{position:relative;display:flex;justify-content:space-between;align-items:flex-start;gap:1rem}
+.brand{font-variation-settings:'wdth' 125;font-weight:800;text-transform:uppercase;font-size:clamp(1rem,2.1vw,1.5rem);
+  line-height:.6;letter-spacing:-.01em;mix-blend-mode:difference}
+.brand span{display:block}
+.brand em{display:block;font-style:normal;font-weight:400;font-size:.6em;line-height:1.1;margin-top:.6em;
+  color:var(--acc);text-transform:none;letter-spacing:.02em}
+.navlinks{display:flex;gap:clamp(1rem,2.4vw,2rem);align-items:center;mix-blend-mode:difference}
+.navlinks a{font-size:clamp(.8rem,1.05vw,.95rem);text-decoration:underline;text-decoration-thickness:1px;
+  text-underline-offset:8px;text-decoration-color:transparent;transition:all .3s var(--oq),transform .5s var(--q),opacity .3s}
+.navlinks a:hover{text-underline-offset:11px;text-decoration-color:currentColor}
+.navlinks:not(:hover) a{transform:translateY(6px);opacity:.45}
+.navlinks a:nth-child(2){transition-delay:.05s}.navlinks a:nth-child(3){transition-delay:.1s}.navlinks a:nth-child(4){transition-delay:.15s}
+@media (max-width:900px){.navlinks{display:none}}
+#menubtn{position:fixed;top:var(--pad);right:var(--pad);z-index:185;width:56px;height:56px;border:1px solid var(--line-2);
+  border-radius:50%;background:rgba(20,20,20,.5);backdrop-filter:blur(8px);cursor:pointer;display:none;
+  flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:transform .5s var(--oq)}
+#menubtn:hover{transform:rotate(90deg)}
+#menubtn i{display:block;width:20px;height:2px;background:var(--fg);transition:.35s var(--ease)}
+#menubtn.open i:first-child{transform:translateY(3.5px) rotate(45deg)}
+#menubtn.open i:last-child{transform:translateY(-3.5px) rotate(-45deg)}
+@media (max-width:900px){#menubtn{display:flex}}
+#overlay{position:fixed;inset:0;z-index:170;background:#0b0b0b;display:flex;flex-direction:column;justify-content:center;
+  gap:.4rem;padding:var(--pad);opacity:0;visibility:hidden;transition:.5s var(--ease)}
+#overlay.open{opacity:1;visibility:visible}
+#overlay a{font-variation-settings:'wdth' 125;font-weight:800;text-transform:uppercase;font-size:clamp(1.9rem,9vw,4rem);
+  line-height:1;letter-spacing:-.02em;opacity:.35;transition:.4s var(--oq)}
+#overlay a:hover,#overlay a:focus{opacity:1;color:var(--acc);transform:translateX(12px)}
+#overlay .ov-meta{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--fg-3);margin-top:2rem}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1280px;margin:0 auto;padding:0 var(--pad)}
+section{padding:clamp(3.5rem,10vh,8rem) 0}
+.sec-head{display:flex;align-items:baseline;gap:.9rem;margin-bottom:clamp(1.6rem,4vh,2.8rem)}
+.sec-num{font-family:var(--mono);font-size:.7rem;color:var(--acc);letter-spacing:.12em;flex:none}
+h2{font-variation-settings:'wdth' 125;font-weight:800;text-transform:uppercase;margin:0;flex:none;
+  font-size:clamp(1.4rem,3.8vw,2.8rem);line-height:.95;letter-spacing:-.015em}
+.sec-rule{flex:1;height:1px;background:var(--line)}
+p{max-width:66ch;margin:0 0 1.1rem;color:var(--fg-2)}
+p:last-child{margin-bottom:0}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .9s var(--oq),transform .9s var(--oq)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+/* ================= HERO (layered scene) ================= */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;
+  padding-top:clamp(7rem,16vh,11rem);padding-bottom:clamp(2rem,6vh,4rem);position:relative;overflow:hidden}
+.hero-sky{position:absolute;inset:-20% 0 0;z-index:-5;background:
+  radial-gradient(120% 70% at 78% 6%,rgba(164,194,159,.2),transparent 55%),
+  radial-gradient(90% 60% at 6% 92%,rgba(164,194,159,.09),transparent 58%),
+  linear-gradient(#0e100f,#161917 60%,#141414);will-change:transform}
+.layer{position:absolute;left:-10%;right:-10%;z-index:-4;pointer-events:none;will-change:transform}
+.layer svg{width:100%;height:100%;display:block}
+.l0{bottom:0;height:56%;opacity:.5}
+.l1{bottom:0;height:46%;opacity:.65}
+.l2{bottom:0;height:36%;opacity:.8}
+.l3{bottom:0;height:26%}
+.l4{bottom:0;height:15%}
+.hero-grid{position:absolute;inset:-6% 0 0;z-index:-3;opacity:.4;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:clamp(48px,7vw,92px) clamp(48px,7vw,92px);
+  -webkit-mask-image:radial-gradient(120% 85% at 50% 35%,#000,transparent 74%);
+  mask-image:radial-gradient(120% 85% at 50% 35%,#000,transparent 74%);will-change:transform}
+/* floating specs / stars — scrub + drift */
+.spark{position:absolute;z-index:-2;background:var(--acc);border-radius:50%;opacity:.5;will-change:transform;pointer-events:none}
+.eyebrow{font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--acc);
+  margin:0 0 clamp(1rem,3vh,2rem);display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;opacity:0;transition:opacity 1s .55s var(--ease)}
+.ready .eyebrow{opacity:1}
+h1{font-variation-settings:'wdth' 125;font-weight:800;text-transform:uppercase;margin:0;
+  font-size:clamp(2.5rem,10.5vw,9rem);line-height:.82;letter-spacing:-.025em}
+h1 .l{display:block;overflow:hidden}
+h1 .l>i{display:block;font-style:normal;transform:translateY(108%);transition:transform 1.05s var(--oq)}
+.ready h1 .l>i{transform:translateY(0)}
+h1 .l:nth-child(2)>i{transition-delay:.08s}
+h1 .l:nth-child(3)>i{transition-delay:.16s}
+.hero-foot{margin-top:clamp(1.4rem,4vh,2.6rem);display:flex;flex-wrap:wrap;gap:1.4rem 2.6rem;align-items:flex-end;
+  justify-content:space-between;opacity:0;transform:translateY(20px);transition:all .95s .6s var(--ease)}
+.ready .hero-foot{opacity:1;transform:none}
+.hero-foot p{max-width:44ch;margin:0;color:var(--fg-2);font-size:clamp(.92rem,1.2vw,1.02rem)}
+.hero-meta{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--fg-3);text-align:right;line-height:1.9}
+@media (max-width:640px){.hero-meta{text-align:left}}
+.cue{position:absolute;right:var(--pad);bottom:clamp(2rem,6vh,4rem);font-family:var(--mono);font-size:.62rem;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--fg-3);display:flex;align-items:center;gap:.7rem;
+  opacity:0;transition:opacity 1s 1.2s}
+.ready .cue{opacity:1}
+.cue::after{content:"";width:52px;height:1px;background:var(--fg-3);transform-origin:left;animation:pull 2.6s var(--ease) infinite}
+@keyframes pull{0%,100%{transform:scaleX(.25)}50%{transform:scaleX(1)}}
+@media (max-width:900px){.cue{display:none}}
+@media (max-height:780px){
+  .hero{padding-top:clamp(6.5rem,14vh,9rem)} h1{font-size:clamp(2.1rem,7.5vw,5.2rem)} .hero-foot{margin-top:1rem}
+}
+@media (max-height:600px) and (orientation:landscape){
+  .hero{min-height:auto;padding-top:6.5rem;padding-bottom:2.5rem} h1{font-size:clamp(2rem,6vw,3.6rem)}
+}
+
+/* ---------- marquee ---------- */
+.marq{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:.85rem 0;background:var(--bg-2)}
+.marq-track{display:flex;width:max-content;animation:slide 40s linear infinite}
+.marq:hover .marq-track{animation-play-state:paused}
+.marq-track span{font-variation-settings:'wdth' 122;font-weight:700;text-transform:uppercase;font-size:clamp(.9rem,1.8vw,1.25rem);
+  padding:0 1.7rem;color:var(--fg);white-space:nowrap;display:flex;align-items:center;gap:1.7rem}
+.marq-track span::after{content:"";width:7px;height:7px;background:var(--acc);border-radius:50%;flex:none}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ---------- about ---------- */
+.about{display:grid;grid-template-columns:minmax(0,1fr) minmax(230px,330px);gap:clamp(1.8rem,4.5vw,4rem);align-items:start}
+@media (max-width:860px){.about{grid-template-columns:1fr}}
+.lede{font-size:clamp(1.12rem,2vw,1.45rem);line-height:1.35;max-width:30ch;color:var(--fg);font-variation-settings:'wdth' 106}
+.frame .media,.imgframe .media{border:1px solid var(--line-2);background:var(--bg-2);overflow:hidden;position:relative}
+.frame .media{aspect-ratio:3/4}
+.frame img,.imgframe img,.imgframe video{width:100%;height:100%;object-fit:cover}
+.frame figcaption{font-family:var(--mono);font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);
+  margin-top:.6rem;padding-top:.5rem;border-top:1px solid var(--line)}
+.slot{position:absolute;inset:0;display:grid;place-content:center;gap:.4rem;text-align:center;padding:1rem;
+  background:repeating-linear-gradient(45deg,transparent 0 10px,rgba(164,194,159,.1) 10px 11px),var(--bg-2)}
+.slot b{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);font-weight:500}
+.slot i{font-style:normal;font-family:var(--mono);font-size:.74rem;color:var(--acc)}
+.no-media .slot{display:grid}
+.no-media img,.no-media video{display:none}
+.smart{display:grid;grid-template-columns:repeat(5,1fr);margin-top:clamp(2.4rem,6vh,4rem);border-top:1px solid var(--line-2)}
+@media (max-width:860px){.smart{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}}
+.smart-cell{padding:1.1rem 1rem 0 1.1rem;border-left:1px solid var(--line)}
+.smart-cell:first-child{border-left:0;padding-left:0}
+@media (max-width:860px){.smart-cell{border-top:1px solid var(--line);border-left:0;padding:.9rem 1rem 0 0}}
+.smart-letter{font-variation-settings:'wdth' 125;font-weight:800;font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:.85;color:var(--acc);display:block}
+.smart-name{font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;display:block;margin:.55rem 0 .4rem}
+.smart-q{font-size:.84rem;line-height:1.4;color:var(--fg-2);display:block;max-width:22ch}
+
+/* ================= SLIDER ================= */
+#goals{padding:clamp(2rem,5vh,3.5rem) 0 0;background:var(--bg)}
+.sl-head{display:flex;align-items:baseline;gap:.9rem;padding:0 var(--pad);max-width:1280px;margin:0 auto clamp(1rem,2.5vh,1.6rem)}
+.sl-head .sec-rule{background:var(--line)}
+
+.stage{position:relative;height:100svh;min-height:620px;touch-action:pan-y;overflow:hidden}
+.track{display:flex;height:100%;will-change:transform;transition:transform 1s var(--q)}
+.slide{min-width:var(--sw);width:var(--sw);height:100%;display:grid;
+  grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);align-content:center;align-items:center;
+  gap:clamp(1.2rem,2.6vw,2.6rem);padding:clamp(1.2rem,3vh,2.4rem) var(--pad) clamp(6rem,13vh,7.5rem);
+  margin:0 auto;max-width:1280px}
+.slide-inner{max-width:640px;justify-self:end;padding-right:clamp(.5rem,2vw,2rem)}
+@media (max-width:960px){
+  .stage{height:auto;min-height:0;overflow:visible}
+  .slide{grid-template-columns:1fr;align-content:start;gap:1.1rem;height:auto;
+    padding:0 var(--pad) clamp(3rem,8vh,4.5rem);max-width:760px}
+  .slide-inner{max-width:none;padding-right:0}
+}
+.sl-kicker{font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acc);
+  margin:0 0 .8rem;display:flex;gap:.7rem;align-items:center}
+.sl-kicker::before{content:"";width:34px;height:1px;background:var(--acc);flex:none}
+.slide h3{font-variation-settings:'wdth' 122;font-weight:800;text-transform:uppercase;margin:0 0 .9rem;
+  font-size:clamp(1.35rem,3.4vw,2.6rem);line-height:.96;letter-spacing:-.02em;max-width:18ch}
+.slide h3 .n{color:var(--acc)}
+.slide .body{max-width:58ch;color:var(--fg-2);font-size:clamp(.9rem,1.02vw,1.02rem)}
+.slide .body p{margin-bottom:.75rem}
+.sm{display:grid;gap:.22rem;margin-top:1rem;font-family:var(--mono);font-size:.7rem;color:var(--fg-2);
+  border-top:1px solid var(--line);padding-top:.8rem;max-width:56ch}
+.sm div{display:grid;grid-template-columns:1.1em 1fr;gap:.6rem;padding:.14rem 0}
+.sm b{color:var(--acc);font-weight:500}
+.sm span{margin:0}
+
+/* visual column = image frame + diagram */
+.visual{display:flex;flex-direction:column;gap:clamp(.7rem,1.6vh,1.1rem);justify-self:start;width:100%;max-width:560px}
+.imgframe{position:relative;width:100%;aspect-ratio:16/10;max-height:34svh;flex:1 1 auto;min-height:0}
+.imgframe .media{width:100%;height:100%}
+.imgframe .tag{position:absolute;left:0;bottom:0;z-index:2;background:rgba(20,20,20,.82);backdrop-filter:blur(6px);
+  border-top:1px solid var(--acc);border-right:1px solid var(--acc);padding:.4rem .7rem;
+  font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+/* full-ratio phone footage: show the whole frame, blurred backdrop fills the sides */
+.imgframe.fit-contain{aspect-ratio:4/3}
+.imgframe.fit-contain .media{background:#0d0e10}
+.imgframe.fit-contain .media::before{content:"";position:absolute;inset:0;z-index:0;
+  background:#0d0e10 url(images/study.jpg) center/cover no-repeat;
+  filter:blur(22px) saturate(.7);transform:scale(1.25);opacity:.55}
+.imgframe.fit-contain .media video{position:relative;z-index:1;object-fit:contain;background:transparent}
+.imgframe.fit-contain .slot{z-index:2}
+.diagram{position:relative;width:100%;flex:0 0 auto;height:clamp(140px,22svh,230px)}
+.diagram svg{position:absolute;inset:0;width:100%;height:100%}
+@media (max-width:960px){
+  .visual{max-width:none;order:-1;flex-direction:row;align-items:stretch;gap:.8rem}
+  .imgframe{max-height:none;aspect-ratio:4/3;flex:1 1 55%}
+  .diagram{flex:1 1 45%;height:auto;min-height:150px}
+}
+@media (max-width:560px){.visual{flex-direction:column}.imgframe{flex:0 0 auto}.diagram{height:170px}}
+
+/* staged entrance */
+.st{opacity:0;transform:translateY(24px);transition:opacity .8s var(--oq),transform .8s var(--oq)}
+.slide.on .st{opacity:1;transform:none}
+.sk1{transition-delay:.1s}.sk2{transition-delay:.2s}.sk3{transition-delay:.3s}.sk4{transition-delay:.42s}.sk5{transition-delay:.54s}
+@media (prefers-reduced-motion:reduce){.st{opacity:1;transform:none;transition:none}}
+
+/* ---------- slider UI ---------- */
+.sl-ui{position:absolute;left:0;right:0;bottom:clamp(1.1rem,3.5vh,2rem);z-index:9;
+  display:flex;align-items:center;gap:clamp(.7rem,2vw,1.5rem);padding:0 var(--pad);max-width:1280px;margin:0 auto}
+.sl-ui>*{pointer-events:auto}
+.dots{display:flex;gap:.5rem}
+.dot{width:38px;height:4px;background:rgba(242,242,242,.2);border:0;padding:0;cursor:pointer;position:relative;overflow:hidden;transition:background .3s}
+.dot::after{content:"";position:absolute;inset:0;background:var(--acc);transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)}
+.dot[aria-selected="true"]::after{transform:scaleX(1)}
+.dot:hover{background:rgba(242,242,242,.45)}
+.sl-count{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--fg-3);white-space:nowrap}
+.sl-count b{color:var(--fg);font-weight:500}
+.sl-spacer{flex:1}
+.arrows{display:flex;gap:.5rem}
+.arrow{width:46px;height:46px;border-radius:50%;border:1px solid var(--line-2);background:rgba(20,20,20,.4);
+  backdrop-filter:blur(6px);cursor:pointer;display:grid;place-items:center;transition:.3s ease}
+.arrow:hover:not(:disabled){background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.arrow:disabled{opacity:.25;cursor:not-allowed}
+.arrow svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.6;fill:none}
+.sl-prog{position:absolute;left:0;bottom:0;height:2px;background:var(--acc);width:0;transition:width .9s var(--q);z-index:9}
+
+/* swipe / drag hint */
+.hint{position:absolute;left:50%;bottom:clamp(4.6rem,12vh,6.4rem);transform:translateX(-50%);z-index:9;
+  display:flex;align-items:center;gap:.7rem;background:rgba(20,20,20,.72);backdrop-filter:blur(8px);
+  border:1px solid var(--line-2);border-radius:10rem;padding:.6rem 1.1rem;
+  font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--fg);
+  transition:opacity .6s var(--ease),transform .6s var(--ease);pointer-events:none}
+.hint.gone{opacity:0;transform:translateX(-50%) translateY(10px)}
+.hint .sw{display:flex;align-items:center;gap:.35rem;color:var(--acc)}
+.hint .sw i{display:block;width:16px;height:1.5px;background:var(--acc);animation:nudge 1.8s var(--ease) infinite}
+.hint .sw i:nth-child(2){animation-delay:.12s}
+.hint .sw i:nth-child(3){animation-delay:.24s}
+@keyframes nudge{0%,100%{transform:translateX(0);opacity:.4}50%{transform:translateX(5px);opacity:1}}
+.hint .k{border:1px solid var(--line-2);border-radius:3px;padding:.1rem .38rem;color:var(--fg-2)}
+@media (max-width:640px){.dots{display:flex}.arrow{width:42px;height:42px}.hint .k{display:none}}
+@media (prefers-reduced-motion:reduce){.hint .sw i{animation:none}}
+
+/* generic SVG art animation */
+.dw{stroke-dasharray:var(--len,1200);stroke-dashoffset:var(--len,1200);transition:stroke-dashoffset 1.5s var(--ease) .3s}
+.slide.on .dw{stroke-dashoffset:0}
+.gbar{transform:scaleY(0);transform-origin:bottom;transition:transform .9s var(--q)}
+.slide.on .gbar{transform:scaleY(1)}
+.grow{transform:scaleX(0);transform-origin:left;transition:transform 1.3s var(--ease) .25s}
+.slide.on .grow{transform:scaleX(1)}
+.orbit{animation:spin 26s linear infinite;transform-origin:50% 50%}
+.orbit.rev{animation-duration:38s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pulse{animation:pl 3.4s ease-in-out infinite}
+@keyframes pl{0%,100%{opacity:.25}50%{opacity:.85}}
+.dash{stroke-dasharray:5 5;animation:march 14s linear infinite}
+@keyframes march{to{stroke-dashoffset:-200}}
+@media (prefers-reduced-motion:reduce){
+  .orbit,.pulse,.dash{animation:none}.dw{stroke-dashoffset:0}.gbar{transform:scaleY(1)}.grow{transform:scaleX(1)}
+}
+
+/* ---------- timeline ---------- */
+.tl-wrap{border:1px solid var(--line);background:var(--bg-2);padding:1.3rem 1.1rem 1.1rem;overflow-x:auto}
+.tl-title{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin:0 0 .9rem}
+.tl svg{display:block;min-width:760px;width:100%;height:auto}
+.tl-bar{fill:var(--acc)}
+.tl-bar.out{fill:none;stroke:var(--acc);stroke-width:1.4;stroke-dasharray:5 4}
+.tl-bartext{font-family:var(--mono);font-size:12px;fill:#0d0d0d;letter-spacing:.06em}
+.tl-bartext.out{fill:var(--acc)}
+.tl-dim{stroke:var(--acc);stroke-width:1}
+.tl-dimtxt{font-family:var(--mono);font-size:10.5px;fill:var(--acc);letter-spacing:.07em;text-anchor:middle}
+.tl-axis{stroke:var(--fg);stroke-width:1.5}
+.tl-tick{stroke:var(--fg);stroke-width:1}
+.tl-month{font-family:var(--mono);font-size:10.5px;fill:var(--fg-3);text-anchor:middle}
+.tl-band{fill:rgba(164,194,159,.08);stroke:var(--line);stroke-width:1}
+.tl-year{font-variation-settings:'wdth' 120;font-size:14px;font-weight:700;fill:var(--fg);text-anchor:middle;letter-spacing:.1em}
+.tl-lead{stroke:var(--acc);stroke-width:1;stroke-dasharray:3 3;opacity:0;transition:opacity .5s}
+.tl.in .tl-lead{opacity:1}
+.tl-lead.risk{stroke:var(--red);transition-delay:.5s}
+.tl-dot{fill:var(--acc);opacity:0;transition:opacity .4s}
+.tl.in .tl-dot{opacity:1;transition-delay:.4s}
+.tl-dot.risk{fill:var(--red);transition-delay:.9s}
+.tl-ms{font-family:var(--mono);font-size:10.5px;fill:var(--fg);text-anchor:middle;opacity:0;transition:opacity .5s}
+.tl.in .tl-ms{opacity:1;transition-delay:.5s}
+.tl-axisnote{font-family:var(--mono);font-size:10px;fill:var(--fg-3);letter-spacing:.1em}
+.fig-cap{font-family:var(--mono);font-size:.64rem;color:var(--fg-3);margin:.75rem 0 0;padding-top:.55rem;border-top:1px solid var(--line);max-width:none}
+
+/* ---------- challenges / conclusion / refs ---------- */
+.fixes{list-style:none;margin:0;padding:0}
+.fixes li{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;border-top:1px dotted var(--line-2);padding:.95rem 0}
+.fixes li:last-child{border-bottom:1px dotted var(--line-2)}
+@media (max-width:720px){.fixes li{grid-template-columns:1fr;gap:.15rem}}
+.prob{font-weight:600;color:var(--fg)}
+.fix{color:var(--fg-2)}
+.fix::before{content:"→ ";font-family:var(--mono);color:var(--red)}
+.concl{border-top:1px solid var(--line-2);padding-top:clamp(1.7rem,4vh,2.6rem)}
+.concl p{font-size:clamp(1.12rem,2vw,1.45rem);line-height:1.35;max-width:38ch;color:var(--fg)}
+.refs{list-style:none;margin:0;padding:0;font-size:.88rem}
+.refs li{padding:.62rem 0 .62rem 1.7rem;text-indent:-1.7rem;border-bottom:1px dotted var(--line);max-width:76ch;line-height:1.55;color:var(--fg-2)}
+.refs li:last-child{border-bottom:0}
+.refs em{font-style:italic;color:var(--fg)}
+.titleblock{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line-2);
+  border:1px solid var(--line-2);margin:clamp(2.8rem,7vh,5rem) 0 0}
+.tb-cell{background:var(--bg);padding:.85rem .95rem}
+.tb-label{display:block;font-family:var(--mono);font-size:.58rem;letter-spacing:.17em;text-transform:uppercase;color:var(--acc);margin-bottom:.32rem}
+.tb-value{display:block;font-variation-settings:'wdth' 110;font-weight:600;font-size:.92rem;line-height:1.28;color:var(--fg)}
+footer{padding:clamp(1.6rem,4vh,2.6rem) 0 clamp(2.6rem,7vh,4.5rem)}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="ld-top"><span>Edsel Evan Santoso</span><span>Loading plan</span></div>
+  <div class="ld-num" id="ldnum">0</div>
+  <div class="ld-bar"><i id="ldbar"></i></div>
+</div>
+
+<div id="cursor"></div>
+<div id="rail"></div>
+
+<nav id="nav">
+  <div class="nav-blur"></div>
+  <div class="nav-in">
+    <a class="brand" href="#top"><span>Edsel</span><span>Santoso</span><em>Learning Plan</em></a>
+    <div class="navlinks">
+      <a href="#about">About</a><a href="#goals">Goals</a><a href="#path">Path</a><a href="#challenges">Challenges</a>
+    </div>
+  </div>
+</nav>
+<button id="menubtn" aria-label="Menu" aria-expanded="false"><i></i><i></i></button>
+<div id="overlay" role="dialog" aria-label="Navigation">
+  <a href="#about" data-close>About me</a>
+  <a href="#goals" data-close>The four goals</a>
+  <a href="#path" data-close>Three-year path</a>
+  <a href="#challenges" data-close>Challenges</a>
+  <a href="#references" data-close>References</a>
+  <div class="ov-meta">GECC1230B · October 2026 · Sheet 1 of 1</div>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="hero-sky" data-par="0.06" data-scrub="scale"></div>
+  <div class="hero-grid" data-par="0.20"></div>
+
+  <!-- 5 parallax layers: far range → mid ridge → near ridge → treeline → foreground -->
+  <div class="layer l0" data-par="0.07">
+    <svg viewBox="0 0 1440 300" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#171a18" d="M0 210 L150 150 L300 200 L470 110 L640 190 L800 128 L980 200 L1150 130 L1320 196 L1440 150 L1440 300 L0 300Z"/>
+      <path fill="none" stroke="rgba(164,194,159,.18)" stroke-width="1" d="M0 210 L150 150 L300 200 L470 110 L640 190 L800 128 L980 200 L1150 130 L1320 196 L1440 150"/>
+    </svg>
+  </div>
+  <div class="layer l1" data-par="0.13">
+    <svg viewBox="0 0 1440 260" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#141714" d="M0 170 L180 96 L340 178 L520 84 L700 176 L880 100 L1060 178 L1250 96 L1440 168 L1440 260 L0 260Z"/>
+      <path fill="none" stroke="rgba(164,194,159,.26)" stroke-width="1.2" d="M0 170 L180 96 L340 178 L520 84 L700 176 L880 100 L1060 178 L1250 96 L1440 168"/>
+      <line x1="0" y1="120" x2="1440" y2="120" stroke="rgba(164,194,159,.14)" stroke-width="1" class="dash"/>
+    </svg>
+  </div>
+  <div class="layer l2" data-par="0.21">
+    <svg viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#111412" d="M0 130 L210 58 L400 140 L610 46 L820 140 L1030 64 L1240 146 L1440 76 L1440 220 L0 220Z"/>
+      <path fill="none" stroke="rgba(164,194,159,.4)" stroke-width="1.4" d="M0 130 L210 58 L400 140 L610 46 L820 140 L1030 64 L1240 146 L1440 76"/>
+      <g fill="rgba(164,194,159,.8)"><circle cx="210" cy="58" r="3"/><circle cx="610" cy="46" r="3"/><circle cx="1030" cy="64" r="3"/></g>
+    </svg>
+  </div>
+  <div class="layer l3" data-par="0.33">
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#0d100e" d="M0 92 L120 60 L240 94 L360 54 L480 96 L600 56 L720 96 L840 58 L960 96 L1080 56 L1200 94 L1320 60 L1440 92 L1440 150 L0 150Z"/>
+      <path fill="none" stroke="rgba(164,194,159,.55)" stroke-width="1.5" d="M0 92 L120 60 L240 94 L360 54 L480 96 L600 56 L720 96 L840 58 L960 96 L1080 56 L1200 94 L1320 60 L1440 92"/>
+    </svg>
+  </div>
+  <div class="layer l4" data-par="0.5">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#090b0a" d="M0 56 L180 34 L360 58 L540 30 L720 58 L900 32 L1080 58 L1260 34 L1440 56 L1440 90 L0 90Z"/>
+    </svg>
+  </div>
+
+  <div class="wrap" style="width:100%">
+    <p class="eyebrow"><span>Chung Chi College · CUHK</span><span>Mechanical &amp; Automation Engineering</span><span>GECC1230B</span></p>
+    <h1><span class="l"><i>My University</i></span><span class="l"><i>Learning</i></span><span class="l"><i>Plan</i></span></h1>
+    <div class="hero-foot">
+      <p>Four goals, written to be Specific, Measurable, Achievable, Relevant and Time-bound — reviewed every semester, and honest about what will not go to schedule.</p>
+      <div class="hero-meta">October 2026<br>Sheet 1 of 1</div>
+    </div>
+  </div>
+  <span class="cue">Scroll</span>
+</header>
+
+<div class="marq" aria-hidden="true"><div class="marq-track">
+  <span>CSWA by month 12</span><span>CSWP by month 30</span><span>GPA 3.5 floor</span><span>Two internships</span><span>Campus identity</span><span>Whole-person development</span>
+  <span>CSWA by month 12</span><span>CSWP by month 30</span><span>GPA 3.5 floor</span><span>Two internships</span><span>Campus identity</span><span>Whole-person development</span>
+</div></div>
+
+<!-- ================= ABOUT ================= -->
+<main class="wrap">
+<section id="about" aria-labelledby="h-about">
+  <div class="sec-head rv"><span class="sec-num">00</span><h2 id="h-about">About me</h2><span class="sec-rule"></span></div>
+  <div class="about">
+    <div class="rv">
+      <p class="lede">As I begin my first year of Mechanical and Automation Engineering at Chung Chi College, The Chinese University of Hong Kong, I am mapping out the next four years.</p>
+      <p>Beyond a degree, I want early confidence with CAD, a transcript I can be proud of, industry experience before graduation, and a place for myself on campus. A quadcopter design is already underway in CAD, with breaks reserved to keep it moving.</p>
+      <p>Doran (1981) wrote his original criteria as Specific, Measurable, Assignable, Realistic and Time-related, while the student version used here (University of Massachusetts Dartmouth, 2024) adapts two of them to Achievable and Relevant. Yemm (2012) adds the feasibility test — time, money, skills, help available — and caps a plan at four key goals. Four follow: three established in Year 1, with certification and internships carrying into years two and three.</p>
+    </div>
+    <figure class="frame rv">
+      <div class="media">
+        <img src="images/portrait.jpg" alt="Portrait of Edsel Evan Santoso" onerror="this.closest('.frame').classList.add('no-media')">
+        <div class="slot"><b>Image slot</b><i>portrait.jpg</i></div>
+      </div>
+      <figcaption>Fig. 0 — Edsel Evan Santoso</figcaption>
+    </figure>
+  </div>
+
+  <div class="smart rv" role="list" aria-label="The S.M.A.R.T. principle">
+    <div class="smart-cell" role="listitem"><span class="smart-letter">S</span><span class="smart-name">Specific</span><span class="smart-q">What exactly will I do?</span></div>
+    <div class="smart-cell" role="listitem"><span class="smart-letter">M</span><span class="smart-name">Measurable</span><span class="smart-q">How will I know I've done it?</span></div>
+    <div class="smart-cell" role="listitem"><span class="smart-letter">A</span><span class="smart-name">Achievable</span><span class="smart-q">Can I realistically get there?</span></div>
+    <div class="smart-cell" role="listitem"><span class="smart-letter">R</span><span class="smart-name">Relevant</span><span class="smart-q">Why does it matter to my degree?</span></div>
+    <div class="smart-cell" role="listitem"><span class="smart-letter">T</span><span class="smart-name">Time-bound</span><span class="smart-q">By when?</span></div>
+  </div>
+</section>
+</main>
+
+<!-- ================= GOALS SLIDER ================= -->
+<section id="goals" aria-labelledby="h-goals">
+  <div class="sl-head">
+    <span class="sec-num">01</span>
+    <h2 id="h-goals">The four goals</h2>
+    <span class="sec-rule"></span>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="track" id="track">
+
+      <!-- ---------- SLIDE 1 : certification ---------- -->
+      <article class="slide" data-i="0">
+        <div class="slide-inner">
+          <p class="sl-kicker st sk1">Short-term · Year 1 → Years 2–3</p>
+          <h3 class="st sk2"><span class="n">Goal 01</span> — SolidWorks certification pathway</h3>
+          <div class="body st sk3">
+            <p>Confident CAD skills early means SolidWorks becomes a tool I reach for in design courses and internships, rather than something still being learned when a project requires it. Dedicating eight to ten hours a week will guide me through the phases: sketching and basic extrusions to month three, revolutions and reference geometry to month six, assemblies and drawings to month nine, materials and mass properties to month eleven, timed mocks in month twelve. During exam weeks, study reduces to one maintenance session instead of nothing — and passing earns me an evening to rest, putting Yemm's advice on rewards into practice.</p>
+            <p><strong style="color:var(--fg)">Continued.</strong> The same pathway carries on after the CSWA: Certified SolidWorks Professional at month 30, two and a half years from the first session, across three six-month stages — advanced parts, configurations, complex assemblies, one segment each. The closing phase goes to a specialisation (sheet metal, weldments or simulation) and a portfolio project.</p>
+          </div>
+          <div class="sm st sk4">
+            <div><b>S</b><span>Pass the CSWA, then the CSWP plus one specialisation</span></div>
+            <div><b>M</b><span>80%+ on three mocks, then the official exam; three CSWP segments, one project</span></div>
+            <div><b>A</b><span>One fixed session plus weekends, built on CSWA practice</span></div>
+            <div><b>R</b><span>Core skill and professional credential for mechanical design</span></div>
+            <div><b>T</b><span>CSWA in 12 months · CSWP by month 30</span></div>
+          </div>
+        </div>
+        <div class="visual st sk3">
+          <div class="imgframe" id="fig-sw">
+            <div class="media">
+              <img src="images/solidworks.jpg" alt="Dimensioned multi-view engineering drawing of a bracket, produced in SolidWorks" onerror="this.closest('.imgframe').classList.add('no-media')">
+              <div class="slot"><b>Image slot</b><i>solidworks.jpg</i></div>
+            </div>
+            <span class="tag">Practice bracket · multi-view drawing</span>
+          </div>
+          <div class="diagram" aria-hidden="true">
+            <svg viewBox="0 0 520 200">
+              <defs><linearGradient id="gfill" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#A4C29F"/><stop offset="100%" stop-color="#7FA679"/></linearGradient></defs>
+              <text x="8" y="14" font-family="IBM Plex Mono" font-size="9" fill="#707377" letter-spacing="2">CERTIFICATION TRACK</text>
+              <rect x="8" y="26" width="480" height="30" fill="none" stroke="rgba(242,242,242,.2)"/>
+              <rect class="grow" x="8" y="26" width="150" height="30" fill="url(#gfill)"/>
+              <rect class="grow" x="158" y="26" width="240" height="30" fill="url(#gfill)" opacity=".5" style="transition-delay:.6s"/>
+              <rect class="grow" x="398" y="26" width="90" height="30" fill="none" stroke="#A4C29F" stroke-dasharray="4 4" style="transition-delay:1s"/>
+              <g font-family="IBM Plex Mono" font-size="9.5" fill="#0d0d0d" letter-spacing="1.2" text-anchor="middle">
+                <text x="83" y="46">CSWA</text><text x="278" y="46">CSWP</text>
+                <text x="443" y="46" fill="#A4C29F">SPEC</text>
+              </g>
+              <g font-family="IBM Plex Mono" font-size="8.5" fill="#A4C29F" letter-spacing="1.1" text-anchor="middle">
+                <text x="83" y="74">M12</text><text x="278" y="74">M30</text><text x="443" y="74">M36</text>
+              </g>
+              <line x1="8" y1="88" x2="488" y2="88" stroke="rgba(242,242,242,.16)"/>
+              <!-- isometric block -->
+              <g transform="translate(140 150)" fill="none" stroke="#A4C29F" stroke-width="1.3">
+                <g class="orbit" style="animation-duration:40s">
+                  <path d="M0 -34 L29 -17 L29 17 L0 34 L-29 17 L-29 -17Z"/>
+                  <path d="M0 -34 L0 34 M-29 -17 L29 17 M29 -17 L-29 17" stroke-opacity=".4"/>
+                </g>
+              </g>
+              <g transform="translate(360 150)" fill="none" stroke="rgba(242,242,242,.32)" stroke-width="1">
+                <ellipse rx="46" ry="18" class="dash"/>
+                <circle cx="46" cy="0" r="4" fill="#A4C29F"/>
+              </g>
+              <g font-family="IBM Plex Mono" font-size="8" fill="#707377" letter-spacing="1.2">
+                <text x="112" y="196">MODEL</text><text x="330" y="196">EXAM</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------- SLIDE 2 : GPA ---------- -->
+      <article class="slide" data-i="1">
+        <div class="slide-inner">
+          <p class="sl-kicker st sk1">Short-term · Year 1</p>
+          <h3 class="st sk2"><span class="n">Goal 02</span> — Hold a GPA of 3.5 or above</h3>
+          <div class="body st sk3">
+            <p>Since maths and physics underpin mechanical engineering, passing is not enough — understanding is the aim. I will dedicate three to four hours each weekday evening to homework, supplemented with textbook problems, exercise sets and past papers at weekends, and a review every Sunday. Each semester will end with a GPA check: below 3.5 adds one weekly support session for my weakest subject.</p>
+          </div>
+          <div class="sm st sk4">
+            <div><b>S</b><span>A 3.5 GPA floor</span></div>
+            <div><b>M</b><span>Hours logged, GPA checked each semester</span></div>
+            <div><b>A</b><span>Adjustable around exams</span></div>
+            <div><b>R</b><span>Foundations for later courses and internships</span></div>
+            <div><b>T</b><span>Weekly, reviewed each semester</span></div>
+          </div>
+        </div>
+        <div class="visual st sk3">
+          <div class="imgframe fit-contain">
+            <div class="media">
+              <video src="images/study.mp4" poster="images/study.jpg" muted loop playsinline autoplay
+                     onerror="this.closest('.imgframe').classList.add('no-media')"></video>
+              <div class="slot"><b>Video slot</b><i>study.mp4 + study.jpg (poster)</i></div>
+            </div>
+            <span class="tag">Hyperlapse · weekday study session</span>
+          </div>
+          <div class="diagram" aria-hidden="true">
+            <svg viewBox="0 0 520 200">
+              <text x="8" y="14" font-family="IBM Plex Mono" font-size="9" fill="#707377" letter-spacing="2">SEMESTER GPA · FLOOR 3.5</text>
+              <g stroke="rgba(242,242,242,.1)">
+                <line x1="8" y1="40" x2="400" y2="40"/><line x1="8" y1="72" x2="400" y2="72"/>
+                <line x1="8" y1="104" x2="400" y2="104"/><line x1="8" y1="136" x2="400" y2="136"/>
+              </g>
+              <rect class="gbar" x="20"  y="72"  width="38" height="68" fill="#A4C29F" opacity=".85"/>
+              <rect class="gbar" x="82"  y="64"  width="38" height="76" fill="#A4C29F" opacity=".85" style="transition-delay:.08s"/>
+              <rect class="gbar" x="144" y="56"  width="38" height="84" fill="#A4C29F" opacity=".85" style="transition-delay:.16s"/>
+              <rect class="gbar" x="206" y="60"  width="38" height="80" fill="#A4C29F" opacity=".85" style="transition-delay:.24s"/>
+              <rect class="gbar" x="268" y="50"  width="38" height="90" fill="#A4C29F" opacity=".85" style="transition-delay:.32s"/>
+              <rect class="gbar" x="330" y="44"  width="38" height="96" fill="#A4C29F" style="transition-delay:.4s"/>
+              <line class="dw" style="--len:400" x1="8" y1="86" x2="400" y2="86" stroke="#C85A45" stroke-width="1.6" stroke-dasharray="6 5"/>
+              <text x="400" y="80" text-anchor="end" font-family="IBM Plex Mono" font-size="9" fill="#C85A45" letter-spacing="1.3">3.50 FLOOR</text>
+              <line x1="8" y1="140" x2="400" y2="140" stroke="#F2F2F2" stroke-width="1.4"/>
+              <g font-family="IBM Plex Mono" font-size="8.5" fill="#707377" text-anchor="middle" letter-spacing="1">
+                <text x="39" y="156">S1</text><text x="101" y="156">S2</text><text x="163" y="156">S3</text>
+                <text x="225" y="156">S4</text><text x="287" y="156">S5</text><text x="349" y="156">S6</text>
+              </g>
+              <g transform="translate(460 92)">
+                <circle r="40" fill="none" stroke="rgba(242,242,242,.14)" stroke-width="7"/>
+                <circle class="dw" style="--len:252" r="40" fill="none" stroke="#A4C29F" stroke-width="7" stroke-dasharray="252" stroke-dashoffset="66" transform="rotate(-90)"/>
+                <text y="-1" text-anchor="middle" font-family="Archivo" font-weight="800" font-size="22" fill="#F2F2F2">3–4h</text>
+                <text y="15" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#707377" letter-spacing="1.2">WEEKDAYS</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------- SLIDE 3 : campus ---------- -->
+      <article class="slide" data-i="2">
+        <div class="slide-inner">
+          <p class="sl-kicker st sk1">Short-term · Year 1 → Year 2</p>
+          <h3 class="st sk2"><span class="n">Goal 03</span> — Campus life, identity &amp; whole-person development</h3>
+          <div class="body st sk3">
+            <p>Lectures are only part of university, so campus life is a goal too: a weekend outing with friends at least once a week, and one Chung Chi event each semester. After serving as a student helper at Chung Chi Foundation Day with the Adventure Department, I plan to do it again — and through all of this, I am forming my identity as a Chung Chi student.</p>
+            <p>Weekends stay open for runs or gym sessions, because physical health supports stamina. Mental health gets equal weight: a break every day, no all-nighters, a Sunday check-in on stress. Quiet weekend time for reading and thinking about why I study keeps perspective — the spiritual side grades cannot measure.</p>
+            <p>Daily Cantonese practice counts as non-major knowledge and eases joining conversations. In Year 2, I will join PEMICU (the CUHK Indonesian Students' Association) to help incoming Indonesian students adjust while earning hostel points toward a Year 3 dorm room.</p>
+          </div>
+          <div class="sm st sk4">
+            <div><b>S</b><span>Social, physical, mental, spiritual and cultural activities</span></div>
+            <div><b>M</b><span>One outing a weekend, one event a semester, daily Cantonese, a PEMICU role in Year 2</span></div>
+            <div><b>A</b><span>They fit my interests and schedule</span></div>
+            <div><b>R</b><span>Whole-person development and campus identity</span></div>
+            <div><b>T</b><span>From Year 1</span></div>
+          </div>
+        </div>
+        <div class="visual st sk3">
+          <div class="imgframe" id="fig-cc">
+            <div class="media">
+              <img src="images/chungchi.jpg" alt="Chung Chi Foundation Day event artwork featuring Edsel" onerror="this.closest('.imgframe').classList.add('no-media')">
+              <div class="slot"><b>Image slot</b><i>chungchi.jpg</i></div>
+            </div>
+            <span class="tag">Foundation Day · Adventure Dept.</span>
+          </div>
+          <div class="diagram" aria-hidden="true">
+            <svg viewBox="0 0 520 200">
+              <g transform="translate(110 100)">
+                <circle class="dw" style="--len:520" r="82" fill="none" stroke="rgba(164,194,159,.28)" stroke-width="1.2"/>
+                <circle class="dw" style="--len:380;transition-delay:.2s" r="60" fill="none" stroke="rgba(164,194,159,.45)" stroke-width="1.2"/>
+                <circle class="dw" style="--len:250;transition-delay:.4s" r="38" fill="none" stroke="rgba(164,194,159,.6)" stroke-width="1.2"/>
+                <circle r="20" fill="rgba(164,194,159,.16)" stroke="#A4C29F" stroke-width="1.3" class="pulse"/>
+                <text y="3" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#A4C29F" letter-spacing="1">ME</text>
+                <g class="orbit" style="animation-duration:32s">
+                  <g transform="translate(0 -82)"><circle r="5.5" fill="#A4C29F"/><text y="-11" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#F2F2F2" letter-spacing="1">PHYSICAL</text></g>
+                  <g transform="translate(82 0)"><circle r="5.5" fill="#A4C29F"/><text y="18" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#F2F2F2" letter-spacing="1">SOCIAL</text></g>
+                </g>
+                <g class="orbit rev" style="animation-duration:32s">
+                  <g transform="translate(0 60)"><circle r="5.5" fill="#A4C29F"/><text y="18" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#F2F2F2" letter-spacing="1">MENTAL</text></g>
+                  <g transform="translate(-60 0)"><circle r="5.5" fill="#A4C29F"/><text y="-11" text-anchor="middle" font-family="IBM Plex Mono" font-size="7.5" fill="#F2F2F2" letter-spacing="1">SPIRITUAL</text></g>
+                </g>
+              </g>
+              <g font-family="IBM Plex Mono" font-size="8.5" fill="#707377" letter-spacing="1.3">
+                <text x="240" y="42">CHUNG CHI · PEMICU</text>
+                <text x="240" y="72">CANTONESE</text>
+                <text x="240" y="100">NON-MAJOR KNOWLEDGE</text>
+                <text x="240" y="140" fill="#A4C29F">IDENTITY FORMING</text>
+              </g>
+              <line class="dw" style="--len:120" x1="196" y1="96" x2="232" y2="96" stroke="rgba(164,194,159,.6)"/>
+            </svg>
+          </div>
+        </div>
+      </article>
+
+      <!-- ---------- SLIDE 4 : internships ---------- -->
+      <article class="slide" data-i="3">
+        <div class="slide-inner">
+          <p class="sl-kicker st sk1">Years 1–2</p>
+          <h3 class="st sk2"><span class="n">Goal 04</span> — Gain two internships, starting with research</h3>
+          <div class="body st sk3">
+            <p>First-year research placements are rare, but applying costs little as long as a backup is ready. This means ten positions or labs shortlisted by month nine, a CV and referees prepared, five applications submitted before the summer. If nothing lands, a supervised faculty project replaces it. Year 2 then shifts to corporate opportunities — fifteen applications, two career events a semester, plus a short annual reflection.</p>
+          </div>
+          <div class="sm st sk4">
+            <div><b>S</b><span>Research first, then corporate</span></div>
+            <div><b>M</b><span>Ten shortlisted, five and fifteen applications, two events a semester</span></div>
+            <div><b>A</b><span>The faculty fallback keeps summer useful</span></div>
+            <div><b>R</b><span>Experience and contacts for my career</span></div>
+            <div><b>T</b><span>Years 1 and 2</span></div>
+          </div>
+        </div>
+        <div class="visual st sk3">
+          <div class="imgframe" id="fig-drone">
+            <div class="media">
+              <video src="images/motion.mp4" poster="images/drone.jpg" muted loop playsinline autoplay controls
+                     onerror="this.closest('.imgframe').classList.add('no-media')"></video>
+              <div class="slot"><b>Media slot</b><i>drone.jpg / motion.mp4</i></div>
+            </div>
+            <span class="tag">Quadcopter design in CAD</span>
+          </div>
+          <div class="diagram" aria-hidden="true">
+            <svg viewBox="0 0 520 200">
+              <text x="8" y="14" font-family="IBM Plex Mono" font-size="9" fill="#707377" letter-spacing="2">APPLICATION PIPELINE</text>
+              <g fill="none" stroke="rgba(164,194,159,.75)" stroke-width="1.4">
+                <path class="dw" style="--len:640" d="M20 26 L250 26 L200 82 L70 82 Z"/>
+                <path class="dw" style="--len:520;transition-delay:.3s" d="M78 96 L192 96 L164 148 L106 148 Z"/>
+                <path class="dw" style="--len:420;transition-delay:.6s" d="M112 160 L158 160 L146 194 L124 194 Z"/>
+              </g>
+              <g font-family="Archivo" font-weight="800" fill="#F2F2F2" text-anchor="middle">
+                <text x="135" y="62" font-size="26" data-count="10">0</text>
+                <text x="135" y="128" font-size="21" data-count="5">0</text>
+                <text x="135" y="184" font-size="18" data-count="15" fill="#A4C29F">0</text>
+              </g>
+              <g font-family="IBM Plex Mono" font-size="7.5" fill="#707377" letter-spacing="1.1">
+                <text x="200" y="56">SHORTLISTED BY M9</text>
+                <text x="200" y="122">YEAR 1 · RESEARCH</text>
+                <text x="200" y="178">YEAR 2 · CORPORATE</text>
+              </g>
+              <path class="dw" style="--len:220;transition-delay:.9s" d="M250 26 L320 26 L320 150 L262 150" fill="none" stroke="#C85A45" stroke-width="1.4" stroke-dasharray="5 4"/>
+              <circle cx="320" cy="157" r="4.5" fill="#C85A45"/>
+              <g font-family="IBM Plex Mono" font-size="7.5" fill="#C85A45" letter-spacing="1.1">
+                <text x="336" y="154">FALLBACK</text><text x="336" y="170">FACULTY PROJECT</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /track -->
+
+    <div class="sl-prog" id="slprog"></div>
+
+    <div class="hint" id="hint">
+      <span class="sw"><i></i><i></i><i></i></span>
+      Drag · scroll · <span class="k">←</span><span class="k">→</span>
+    </div>
+
+    <div class="sl-ui">
+      <div class="dots" id="dots" role="tablist" aria-label="Goal slides"></div>
+      <span class="sl-count"><b id="curnow">01</b> / <span id="curall">04</span></span>
+      <span class="sl-spacer"></span>
+      <div class="arrows">
+        <button class="arrow" id="prev" aria-label="Previous goal"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="arrow" id="next" aria-label="Next goal"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+
+<!-- ================= TIMELINE ================= -->
+<section id="path" aria-labelledby="h-path">
+  <div class="sec-head rv"><span class="sec-num">02</span><h2 id="h-path">The three-year path</h2><span class="sec-rule"></span></div>
+  <div class="tl-wrap rv">
+    <p class="tl-title">Fig. 5 — Certification track above the axis; applications below</p>
+    <div class="tl" id="tl">
+    <svg viewBox="0 0 1000 300" role="img" aria-label="Timeline from month zero to month thirty-six: CSWA in months zero to twelve, CSWP in months twelve to thirty, specialisation in months thirty to thirty-six, with internship application milestones marked below the axis.">
+      <rect class="tl-bar" x="60" y="16" width="300" height="30"></rect>
+      <text class="tl-bartext" x="210" y="36" text-anchor="middle">CSWA · ASSOCIATE</text>
+      <rect class="tl-bar" x="360" y="16" width="450" height="30"></rect>
+      <text class="tl-bartext" x="585" y="36" text-anchor="middle">CSWP · PROFESSIONAL (3 SEGMENTS)</text>
+      <rect class="tl-bar out" x="810" y="16" width="150" height="30"></rect>
+      <text class="tl-bartext out" x="885" y="36" text-anchor="middle">SPECIALISATION</text>
+      <line class="tl-dim" x1="60" y1="58" x2="360" y2="58"></line>
+      <line class="tl-dim" x1="60" y1="53" x2="60" y2="63"></line>
+      <line class="tl-dim" x1="360" y1="53" x2="360" y2="63"></line>
+      <text class="tl-dimtxt" x="210" y="74">12 MONTHS</text>
+      <line class="tl-dim" x1="360" y1="58" x2="810" y2="58"></line>
+      <line class="tl-dim" x1="810" y1="53" x2="810" y2="63"></line>
+      <text class="tl-dimtxt" x="585" y="74">18 MONTHS</text>
+      <line class="tl-dim" x1="810" y1="58" x2="960" y2="58"></line>
+      <line class="tl-dim" x1="960" y1="53" x2="960" y2="63"></line>
+      <text class="tl-dimtxt" x="885" y="74">6 MONTHS</text>
+      <line class="tl-axis" x1="60" y1="104" x2="960" y2="104"></line>
+      <g class="tl-tick">
+        <line x1="60" y1="104" x2="60" y2="112"></line><line x1="210" y1="104" x2="210" y2="112"></line>
+        <line x1="360" y1="104" x2="360" y2="112"></line><line x1="510" y1="104" x2="510" y2="112"></line>
+        <line x1="660" y1="104" x2="660" y2="112"></line><line x1="810" y1="104" x2="810" y2="112"></line>
+        <line x1="960" y1="104" x2="960" y2="112"></line>
+      </g>
+      <g class="tl-month">
+        <text x="60" y="126">M0</text><text x="210" y="126">M6</text><text x="360" y="126">M12</text>
+        <text x="510" y="126">M18</text><text x="660" y="126">M24</text><text x="810" y="126">M30</text>
+        <text x="960" y="126">M36</text>
+      </g>
+      <text class="tl-axisnote" x="60" y="94">MONTHS FROM START</text>
+      <rect class="tl-band" x="60" y="140" width="300" height="34"></rect>
+      <rect class="tl-band" x="360" y="140" width="300" height="34"></rect>
+      <rect class="tl-band" x="660" y="140" width="300" height="34"></rect>
+      <text class="tl-year" x="210" y="162">YEAR 1</text>
+      <text class="tl-year" x="510" y="162">YEAR 2</text>
+      <text class="tl-year" x="810" y="162">YEAR 3</text>
+      <line class="tl-lead" x1="285" y1="112" x2="285" y2="208"></line>
+      <circle class="tl-dot" cx="285" cy="208" r="4"></circle>
+      <text class="tl-ms" x="285" y="226">M9 · research applications</text>
+      <line class="tl-lead" x1="360" y1="112" x2="360" y2="252"></line>
+      <circle class="tl-dot" cx="360" cy="252" r="4"></circle>
+      <text class="tl-ms" x="360" y="270">M12 · summer research</text>
+      <line class="tl-lead risk" x1="392" y1="112" x2="392" y2="252"></line>
+      <circle class="tl-dot risk" cx="392" cy="252" r="4"></circle>
+      <line class="tl-lead risk" x1="392" y1="256" x2="432" y2="282"></line>
+      <text class="tl-ms" x="438" y="286" text-anchor="start" fill="#C85A45">faculty-project fallback</text>
+      <line class="tl-lead" x1="510" y1="112" x2="510" y2="208"></line>
+      <circle class="tl-dot" cx="510" cy="208" r="4"></circle>
+      <text class="tl-ms" x="510" y="226">M18 · corporate applications · PEMICU</text>
+      <line class="tl-lead" x1="660" y1="112" x2="660" y2="252"></line>
+      <circle class="tl-dot" cx="660" cy="252" r="4"></circle>
+      <text class="tl-ms" x="660" y="270">M24 · corporate internship</text>
+    </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHALLENGES ================= -->
+<section id="challenges" aria-labelledby="h-ch">
+  <div class="sec-head rv"><span class="sec-num">03</span><h2 id="h-ch">Challenges &amp; solutions</h2><span class="sec-rule"></span></div>
+  <ul class="fixes rv">
+    <li><span class="prob">Coursework spikes</span><span class="fix">Drop to one maintenance session, resume full hours after</span></li>
+    <li><span class="prob">Motivation fades in self-study</span><span class="fix">Monthly review of saved models and mock results</span></li>
+    <li><span class="prob">Research application rejected</span><span class="fix">Faculty project keeps the summer useful</span></li>
+    <li><span class="prob">Certification costs</span><span class="fix">Early check of student pricing and software access</span></li>
+    <li><span class="prob">Homesickness</span><span class="fix">Weekend plans, Chung Chi events, PEMICU</span></li>
+  </ul>
+</section>
+
+<!-- ================= CONCLUSION ================= -->
+<section id="conclusion" aria-labelledby="h-con">
+  <div class="sec-head rv"><span class="sec-num">04</span><h2 id="h-con">Conclusion</h2><span class="sec-rule"></span></div>
+  <div class="concl rv">
+    <p>Each semester ends by reviewing this plan and adjusting anything that no longer fits. Not everything will go according to schedule, but regular checks keep me honest about whether I am moving toward these goals.</p>
+  </div>
+</section>
+
+<!-- ================= REFERENCES ================= -->
+<section id="references" aria-labelledby="h-ref">
+  <div class="sec-head rv"><span class="sec-num">05</span><h2 id="h-ref">References</h2><span class="sec-rule"></span></div>
+  <ol class="refs rv">
+    <li>Doran, G. T. (1981) "There's a S.M.A.R.T. way to write management's goals and objectives," <em>Management Review</em>, 70(11), pp. 35–36.</li>
+    <li>University of Massachusetts Dartmouth (2024) <em>SMART goals for Students</em>. Available at: https://www.umassd.edu/fycm/goal-setting/resources/smartgoals/ (Accessed: 20 August 2024).</li>
+    <li>Yemm, G. (2012) <em>The Financial Times Essential Guide to Leading Your Team: How to Set Goals, Measure Performance and Reward Talent</em>. Harlow: Pearson, pp. 65–72.</li>
+  </ol>
+</section>
+
+<footer>
+  <div class="titleblock">
+    <div class="tb-cell"><span class="tb-label">Student</span><span class="tb-value">Edsel Evan Santoso</span></div>
+    <div class="tb-cell"><span class="tb-label">Programme</span><span class="tb-value">B.Eng. Mechanical and Automation Engineering</span></div>
+    <div class="tb-cell"><span class="tb-label">College</span><span class="tb-value">Chung Chi College, CUHK</span></div>
+    <div class="tb-cell"><span class="tb-label">Course</span><span class="tb-value">GECC1230B</span></div>
+    <div class="tb-cell"><span class="tb-label">Date</span><span class="tb-value">October 2026</span></div>
+    <div class="tb-cell"><span class="tb-label">Sheet</span><span class="tb-value">1 of 1</span></div>
+  </div>
+</footer>
+</main>
+
+<script>
+(function(){
+'use strict';
+var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var fine=window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+/* ---------- loader ---------- */
+var loader=document.getElementById('loader'),ldnum=document.getElementById('ldnum'),ldbar=document.getElementById('ldbar');
+function finishLoad(){ document.body.classList.add('ready'); if(loader) loader.classList.add('done');
+  setTimeout(function(){ if(loader) loader.style.display='none'; },700); }
+if(reduce){ finishLoad(); }
+else{ var p=0,t0=Date.now();
+  var iv=setInterval(function(){
+    p+=Math.random()*13+5;
+    if(p>=100||Date.now()-t0>1700){ p=100; clearInterval(iv); setTimeout(finishLoad,220); }
+    ldnum.textContent=Math.floor(p); ldbar.style.transform='scaleX('+(p/100)+')';
+  },95); }
+
+/* ---------- sparkles in hero (scrubbed + drifting) ---------- */
+if(!reduce){
+  var hero=document.querySelector('.hero');
+  var frag=document.createDocumentFragment();
+  for(var s=0;s<16;s++){
+    var d=document.createElement('span');
+    d.className='spark';
+    var sz=Math.random()*2.4+1;
+    d.style.width=sz+'px'; d.style.height=sz+'px';
+    d.style.left=(Math.random()*100)+'%';
+    d.style.top=(Math.random()*62)+'%';
+    d.style.opacity=(Math.random()*.5+.18).toFixed(2);
+    d.setAttribute('data-par',(0.28+Math.random()*0.5).toFixed(2));
+    frag.appendChild(d);
+  }
+  hero.appendChild(frag);
+}
+
+/* ---------- reveals ---------- */
+var io=new IntersectionObserver(function(en){
+  en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+var tlEl=document.getElementById('tl');
+if(tlEl) new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting) tlEl.classList.add('in'); }); },{threshold:.2}).observe(tlEl);
+
+/* ---------- scroll: rail, nav, parallax, scrub ---------- */
+var rail=document.getElementById('rail'),nav=document.getElementById('nav'),lastY=0;
+var parEls=Array.prototype.slice.call(document.querySelectorAll('[data-par]'));
+var scrubEls=Array.prototype.slice.call(document.querySelectorAll('[data-scrub]'));
+function onScroll(){
+  var y=window.scrollY||document.documentElement.scrollTop;
+  var h=document.documentElement.scrollHeight-window.innerHeight;
+  if(rail) rail.style.width=(h>0?(y/h)*100:0)+'%';
+  if(nav){ if(y>lastY&&y>380) nav.classList.add('hide'); else nav.classList.remove('hide'); }
+  lastY=y;
+  if(!reduce){
+    /* parallax: layered scene */
+    var vh=window.innerHeight;
+    if(y<vh*1.4){
+      for(var i=0;i<parEls.length;i++){
+        var el=parEls[i],f=parseFloat(el.getAttribute('data-par'));
+        el.style.transform='translate3d(0,'+(y*f).toFixed(1)+'px,0)';
+      }
+    }
+    /* scrub: progress tied directly to scroll position */
+    for(var j=0;j<scrubEls.length;j++){
+      var se=scrubEls[j],mode=se.getAttribute('data-scrub');
+      var pr=Math.min(Math.max(y/vh,0),1);
+      if(mode==='scale'){ var sc=1+pr*0.16; se.style.transform='scale('+sc.toFixed(3)+')'; se.style.opacity=(1-pr*0.5).toFixed(3); }
+    }
+  }
+}
+var ticking=false;
+window.addEventListener('scroll',function(){
+  if(!ticking){ requestAnimationFrame(function(){ onScroll(); ticking=false; }); ticking=true; }
+},{passive:true});
+onScroll();
+
+/* ---------- cursor ---------- */
+if(fine&&!reduce){
+  var cur=document.getElementById('cursor'),mx=0,my=0,cx=0,cy=0,on=false;
+  window.addEventListener('mousemove',function(e){ mx=e.clientX; my=e.clientY;
+    if(!on){ on=true; cur.classList.add('on'); cx=mx; cy=my; } },{passive:true});
+  (function loop(){ cx+=(mx-cx)*0.16; cy+=(my-cy)*0.16;
+    cur.style.transform='translate('+cx+'px,'+cy+'px) translate(-50%,-50%)'; requestAnimationFrame(loop); })();
+  window.__bindCursor=function(){
+    document.querySelectorAll('a,button,.marq,.stage').forEach(function(el){
+      if(el.__b) return; el.__b=1;
+      el.addEventListener('mouseenter',function(){ cur.classList.add(el.classList.contains('stage')?'grab':'big'); });
+      el.addEventListener('mouseleave',function(){ cur.classList.remove('big','grab'); });
+    });
+  };
+  window.addEventListener('mouseleave',function(){ cur.classList.remove('on'); });
+}
+
+/* ---------- menu ---------- */
+var mb=document.getElementById('menubtn'),ov=document.getElementById('overlay');
+function setMenu(open){ mb.classList.toggle('open',open); ov.classList.toggle('open',open);
+  mb.setAttribute('aria-expanded',open?'true':'false'); document.body.classList.toggle('lock',open); }
+if(mb){
+  mb.addEventListener('click',function(){ setMenu(!ov.classList.contains('open')); });
+  ov.querySelectorAll('[data-close]').forEach(function(a){ a.addEventListener('click',function(){ setMenu(false); }); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') setMenu(false); });
+}
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var id=a.getAttribute('href'); if(id==='#') return;
+    var t=document.querySelector(id); if(!t) return;
+    e.preventDefault(); setMenu(false);
+    t.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  });
+});
+
+/* ---------- count-up ---------- */
+function countUp(svg){
+  svg.querySelectorAll('[data-count]').forEach(function(el){
+    var target=parseInt(el.getAttribute('data-count'),10),start=null,dur=1000;
+    if(reduce){ el.textContent=target; return; }
+    (function step(ts){ if(!start) start=ts;
+      var pr=Math.min((ts-start)/dur,1),e=1-Math.pow(1-pr,3);
+      el.textContent=Math.round(target*e); if(pr<1) requestAnimationFrame(step);
+    })(performance.now());
+  });
+}
+
+/* ================= SLIDER ================= */
+var stage=document.getElementById('stage'),track=document.getElementById('track'),
+    slides=Array.prototype.slice.call(track.querySelectorAll('.slide')),
+    dots=document.getElementById('dots'),prevB=document.getElementById('prev'),nextB=document.getElementById('next'),
+    curnow=document.getElementById('curnow'),slprog=document.getElementById('slprog'),hint=document.getElementById('hint'),
+    idx=0,total=slides.length,lock=false,sw=0,interacted=false;
+
+document.getElementById('curall').textContent=String(total).padStart(2,'0');
+
+slides.forEach(function(_,i){
+  var b=document.createElement('button');
+  b.className='dot'; b.type='button'; b.setAttribute('role','tab'); b.setAttribute('aria-label','Goal '+(i+1));
+  b.addEventListener('click',function(){ go(i); markInteracted(); });
+  dots.appendChild(b);
+});
+
+function measure(){
+  var w=stage.clientWidth||window.innerWidth;
+  /* desktop: leave a visible slice of the next slide as an affordance */
+  var peek=window.matchMedia('(min-width:961px)').matches;
+  sw=peek?Math.round(w*0.9):w;
+  document.documentElement.style.setProperty('--sw',sw+'px');
+  track.style.transition='none';
+  track.style.transform='translate3d('+(-idx*sw)+'px,0,0)';
+  void track.offsetWidth; track.style.transition='';
+}
+function markInteracted(){
+  if(interacted) return; interacted=true;
+  if(hint) hint.classList.add('gone');
+}
+function animateSlide(s){
+  s.querySelectorAll('.st').forEach(function(el){ el.style.transition='none'; });
+  void s.offsetWidth;
+  s.querySelectorAll('.st').forEach(function(el){ el.style.transition=''; });
+  s.classList.remove('on'); void s.offsetWidth; s.classList.add('on');
+  var art=s.querySelector('.diagram svg'); if(art) countUp(art);
+}
+function paint(){
+  track.style.transform='translate3d('+(-idx*sw)+'px,0,0)';
+  slides.forEach(function(s,i){ s.classList.toggle('on',i===idx); });
+  dots.querySelectorAll('.dot').forEach(function(d,i){ d.setAttribute('aria-selected',i===idx?'true':'false'); });
+  curnow.textContent=String(idx+1).padStart(2,'0');
+  slprog.style.width=((idx+1)/total*100)+'%';
+  prevB.disabled=idx===0; nextB.disabled=idx===total-1;
+}
+function go(i){
+  if(i<0||i>=total||i===idx||lock) return;
+  lock=true; idx=i; paint(); animateSlide(slides[idx]);
+  setTimeout(function(){ lock=false; },reduce?60:1000);
+}
+function next(){ go(idx+1); }
+function prev(){ go(idx-1); }
+
+nextB.addEventListener('click',function(){ next(); markInteracted(); });
+prevB.addEventListener('click',function(){ prev(); markInteracted(); });
+
+document.addEventListener('keydown',function(e){
+  if(ov&&ov.classList.contains('open')) return;
+  var r=stage.getBoundingClientRect();
+  if(!(r.top<window.innerHeight*0.6&&r.bottom>window.innerHeight*0.4)) return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'){ e.preventDefault(); next(); markInteracted(); }
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); markInteracted(); }
+});
+
+/* wheel: capture only while the slider owns the viewport (desktop) */
+var wheelAcc=0,wheelTO=null;
+stage.addEventListener('wheel',function(e){
+  if(window.matchMedia('(max-width:960px)').matches) return;
+  var r=stage.getBoundingClientRect();
+  var owned=r.top<=2&&r.bottom>=window.innerHeight-2;
+  if(!owned) return;
+  var dy=e.deltaY,fwd=dy>0;
+  if((fwd&&idx<total-1)||(!fwd&&idx>0)){
+    e.preventDefault();
+    if(lock) return;
+    wheelAcc+=dy; clearTimeout(wheelTO); wheelTO=setTimeout(function(){ wheelAcc=0; },180);
+    if(Math.abs(wheelAcc)>34){ fwd?next():prev(); wheelAcc=0; markInteracted(); }
+  }
+},{passive:false});
+
+/* drag / swipe */
+var dragging=false,startX=0,startT=0;
+function down(x){ dragging=true; startX=x; startT=idx*sw; track.style.transition='none'; }
+function move(x){
+  if(!dragging) return;
+  var d=x-startX,lim=sw*0.85;
+  if((idx===0&&d>0)||(idx===total-1&&d<0)) d*=0.3;
+  if(Math.abs(d)>lim) d=lim*(d>0?1:-1);
+  track.style.transform='translate3d('+(-startT+d)+'px,0,0)';
+}
+function up(x){
+  if(!dragging) return; dragging=false;
+  track.style.transition='';
+  var d=x-startX,th=sw*0.15;
+  if(d<-th) next(); else if(d>th) prev(); else paint();
+  if(Math.abs(d)>6) markInteracted();
+}
+stage.addEventListener('mousedown',function(e){ if(e.button!==0) return; down(e.clientX); });
+window.addEventListener('mousemove',function(e){ if(dragging){ e.preventDefault(); move(e.clientX); } });
+window.addEventListener('mouseup',function(e){ up(e.clientX); });
+stage.addEventListener('touchstart',function(e){ down(e.touches[0].clientX); },{passive:true});
+stage.addEventListener('touchmove',function(e){ move(e.touches[0].clientX); },{passive:true});
+stage.addEventListener('touchend',function(e){ up(e.changedTouches[0].clientX); },{passive:true});
+
+/* init */
+measure(); paint();
+window.addEventListener('resize',function(){ measure(); paint(); });
+new IntersectionObserver(function(en){
+  en.forEach(function(e){ if(e.isIntersecting) animateSlide(slides[idx]); });
+},{threshold:.3}).observe(stage);
+setTimeout(function(){ if(!interacted&&hint) hint.classList.add('gone'); }, 9000);
+if(window.__bindCursor) window.__bindCursor();
+})();
+</script>
+</body>
+</html>
