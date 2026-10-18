@@ -123,7 +123,6 @@ p:last-child{margin-bottom:0}
   background-size:clamp(48px,7vw,92px) clamp(48px,7vw,92px);
   -webkit-mask-image:radial-gradient(120% 85% at 50% 35%,#000,transparent 74%);
   mask-image:radial-gradient(120% 85% at 50% 35%,#000,transparent 74%);will-change:transform}
-/* floating specs / stars — scrub + drift */
 .spark{position:absolute;z-index:-2;background:var(--acc);border-radius:50%;opacity:.5;will-change:transform;pointer-events:none}
 .eyebrow{font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;color:var(--acc);
   margin:0 0 clamp(1rem,3vh,2rem);display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;opacity:0;transition:opacity 1s .55s var(--ease)}
@@ -173,7 +172,8 @@ h1 .l:nth-child(3)>i{transition-delay:.16s}
 .frame img,.imgframe img,.imgframe video{width:100%;height:100%;object-fit:cover}
 .frame figcaption{font-family:var(--mono);font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;color:var(--fg-3);
   margin-top:.6rem;padding-top:.5rem;border-top:1px solid var(--line)}
-.slot{position:absolute;inset:0;display:grid;place-content:center;gap:.4rem;text-align:center;padding:1rem;
+/* placeholder: HIDDEN by default, shown only when the parent has .no-media */
+.slot{position:absolute;inset:0;z-index:3;display:none;place-content:center;gap:.4rem;text-align:center;padding:1rem;
   background:repeating-linear-gradient(45deg,transparent 0 10px,rgba(164,194,159,.1) 10px 11px),var(--bg-2)}
 .slot b{font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--red);font-weight:500}
 .slot i{font-style:normal;font-family:var(--mono);font-size:.74rem;color:var(--acc)}
@@ -190,7 +190,8 @@ h1 .l:nth-child(3)>i{transition-delay:.16s}
 
 /* ================= SLIDER ================= */
 #goals{padding:clamp(2rem,5vh,3.5rem) 0 0;background:var(--bg)}
-.sl-head{display:flex;align-items:baseline;gap:.9rem;padding:0 var(--pad);max-width:1280px;margin:0 auto clamp(1rem,2.5vh,1.6rem)}
+.sl-head{position:relative;z-index:6;display:flex;align-items:baseline;gap:.9rem;padding:0 var(--pad);
+  max-width:1280px;margin:0 auto clamp(.6rem,2vh,1.2rem)}
 .sl-head .sec-rule{background:var(--line)}
 
 .stage{position:relative;height:100svh;min-height:620px;touch-action:pan-y;overflow:hidden}
@@ -227,12 +228,9 @@ h1 .l:nth-child(3)>i{transition-delay:.16s}
 .imgframe .tag{position:absolute;left:0;bottom:0;z-index:2;background:rgba(20,20,20,.82);backdrop-filter:blur(6px);
   border-top:1px solid var(--acc);border-right:1px solid var(--acc);padding:.4rem .7rem;
   font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
-/* full-ratio phone footage: show the whole frame, blurred backdrop fills the sides */
+/* full-ratio phone footage: whole frame visible, dark matte fills the sides */
 .imgframe.fit-contain{aspect-ratio:4/3}
 .imgframe.fit-contain .media{background:#0d0e10}
-.imgframe.fit-contain .media::before{content:"";position:absolute;inset:0;z-index:0;
-  background:#0d0e10 url(images/study.jpg) center/cover no-repeat;
-  filter:blur(22px) saturate(.7);transform:scale(1.25);opacity:.55}
 .imgframe.fit-contain .media video{position:relative;z-index:1;object-fit:contain;background:transparent}
 .imgframe.fit-contain .slot{z-index:2}
 .diagram{position:relative;width:100%;flex:0 0 auto;height:clamp(140px,22svh,230px)}
@@ -328,7 +326,6 @@ h1 .l:nth-child(3)>i{transition-delay:.16s}
 .tl-ms{font-family:var(--mono);font-size:10.5px;fill:var(--fg);text-anchor:middle;opacity:0;transition:opacity .5s}
 .tl.in .tl-ms{opacity:1;transition-delay:.5s}
 .tl-axisnote{font-family:var(--mono);font-size:10px;fill:var(--fg-3);letter-spacing:.1em}
-.fig-cap{font-family:var(--mono);font-size:.64rem;color:var(--fg-3);margin:.75rem 0 0;padding-top:.55rem;border-top:1px solid var(--line);max-width:none}
 
 /* ---------- challenges / conclusion / refs ---------- */
 .fixes{list-style:none;margin:0;padding:0}
@@ -387,7 +384,6 @@ footer{padding:clamp(1.6rem,4vh,2.6rem) 0 clamp(2.6rem,7vh,4.5rem)}
   <div class="hero-sky" data-par="0.06" data-scrub="scale"></div>
   <div class="hero-grid" data-par="0.20"></div>
 
-  <!-- 5 parallax layers: far range → mid ridge → near ridge → treeline → foreground -->
   <div class="layer l0" data-par="0.07">
     <svg viewBox="0 0 1440 300" preserveAspectRatio="none" aria-hidden="true">
       <path fill="#171a18" d="M0 210 L150 150 L300 200 L470 110 L640 190 L800 128 L980 200 L1150 130 L1320 196 L1440 150 L1440 300 L0 300Z"/>
@@ -518,7 +514,6 @@ footer{padding:clamp(1.6rem,4vh,2.6rem) 0 clamp(2.6rem,7vh,4.5rem)}
                 <text x="83" y="74">M12</text><text x="278" y="74">M30</text><text x="443" y="74">M36</text>
               </g>
               <line x1="8" y1="88" x2="488" y2="88" stroke="rgba(242,242,242,.16)"/>
-              <!-- isometric block -->
               <g transform="translate(140 150)" fill="none" stroke="#A4C29F" stroke-width="1.3">
                 <g class="orbit" style="animation-duration:40s">
                   <path d="M0 -34 L29 -17 L29 17 L0 34 L-29 17 L-29 -17Z"/>
@@ -554,11 +549,11 @@ footer{padding:clamp(1.6rem,4vh,2.6rem) 0 clamp(2.6rem,7vh,4.5rem)}
           </div>
         </div>
         <div class="visual st sk3">
-          <div class="imgframe fit-contain">
+          <div class="imgframe fit-contain" id="fig-study">
             <div class="media">
-              <video src="images/study.mp4" poster="images/study.jpg" muted loop playsinline autoplay
+              <video src="images/study.mp4" muted loop playsinline autoplay
                      onerror="this.closest('.imgframe').classList.add('no-media')"></video>
-              <div class="slot"><b>Video slot</b><i>study.mp4 + study.jpg (poster)</i></div>
+              <div class="slot"><b>Video slot</b><i>study.mp4</i></div>
             </div>
             <span class="tag">Hyperlapse · weekday study session</span>
           </div>
@@ -667,9 +662,8 @@ footer{padding:clamp(1.6rem,4vh,2.6rem) 0 clamp(2.6rem,7vh,4.5rem)}
         <div class="visual st sk3">
           <div class="imgframe" id="fig-drone">
             <div class="media">
-              <video src="images/motion.mp4" poster="images/drone.jpg" muted loop playsinline autoplay controls
-                     onerror="this.closest('.imgframe').classList.add('no-media')"></video>
-              <div class="slot"><b>Media slot</b><i>drone.jpg / motion.mp4</i></div>
+              <img src="images/drone.jpg" alt="Quadcopter design in CAD" onerror="this.closest('.imgframe').classList.add('no-media')">
+              <div class="slot"><b>Image slot</b><i>drone.jpg</i></div>
             </div>
             <span class="tag">Quadcopter design in CAD</span>
           </div>
@@ -847,7 +841,7 @@ else{ var p=0,t0=Date.now();
     ldnum.textContent=Math.floor(p); ldbar.style.transform='scaleX('+(p/100)+')';
   },95); }
 
-/* ---------- sparkles in hero (scrubbed + drifting) ---------- */
+/* ---------- sparkles in hero ---------- */
 if(!reduce){
   var hero=document.querySelector('.hero');
   var frag=document.createDocumentFragment();
@@ -884,7 +878,6 @@ function onScroll(){
   if(nav){ if(y>lastY&&y>380) nav.classList.add('hide'); else nav.classList.remove('hide'); }
   lastY=y;
   if(!reduce){
-    /* parallax: layered scene */
     var vh=window.innerHeight;
     if(y<vh*1.4){
       for(var i=0;i<parEls.length;i++){
@@ -892,7 +885,6 @@ function onScroll(){
         el.style.transform='translate3d(0,'+(y*f).toFixed(1)+'px,0)';
       }
     }
-    /* scrub: progress tied directly to scroll position */
     for(var j=0;j<scrubEls.length;j++){
       var se=scrubEls[j],mode=se.getAttribute('data-scrub');
       var pr=Math.min(Math.max(y/vh,0),1);
@@ -971,7 +963,6 @@ slides.forEach(function(_,i){
 
 function measure(){
   var w=stage.clientWidth||window.innerWidth;
-  /* desktop: leave a visible slice of the next slide as an affordance */
   var peek=window.matchMedia('(min-width:961px)').matches;
   sw=peek?Math.round(w*0.9):w;
   document.documentElement.style.setProperty('--sw',sw+'px');
